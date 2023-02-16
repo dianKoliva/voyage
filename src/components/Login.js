@@ -14,7 +14,7 @@ const loginSchema= yup.object({
 })
 const Login = ({navigation}) => {
   return (
-    <ImageBackground source={require("../public/images/1.png")} className="flex-1 justify-center ">
+    <ImageBackground source={require("../../public/images/1.png")} className="flex-1 justify-center ">
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View  >
     <Text  className="pb-8 text-center relative text-2xl font-bold text-black">Voyage</Text>   
@@ -55,7 +55,7 @@ Sign In
 <TouchableOpacity  className="bg-white shadow-xl py-3  items-center mt-3 ">
   <View className=" flex-row ">
    
-<Image className="h-8 w-8  -left-8"source={require('../public/images/go.png')}></Image>
+<Image className="h-8 w-8  -left-8"source={require('../../public/images/go.png')}></Image>
   <Text  className=" mt-1" >
 
 Sign in with google
