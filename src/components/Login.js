@@ -3,6 +3,8 @@ import { View, Text, TextInput, Button, TouchableOpacity, TouchableWithoutFeedba
 import React from 'react'
 import {FcGoogle} from 'react-icons/fc'
 import { Formik } from 'formik'
+import { useSelector, useDispatch } from 'react-redux';
+import { setName,setAge } from '../redux/actions';
 import * as yup from 'yup';
 const loginSchema= yup.object({
   email:yup.string()

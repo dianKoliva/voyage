@@ -53,16 +53,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-
-
-    // justifyContent: 'center',
   },
 content:{
   padding: 10,
   flex:1
 },
 list:{
-  marginTop:20,
+  marginTop:0,
   flex:1,
  
 }

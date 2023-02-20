@@ -1,9 +1,11 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text,StyleSheet,FlatList,TouchableOpacity ,ScrollView} from 'react-native'
+import React,{useState} from 'react'
 
-const Seats = () => {
+const Seats = ({navigation}) => {
+
   return (
-    <View>
+    <ScrollView style={{ height: '100%'}}>
+    <View style={{flex: 1}} >
      <View className="p-4 shadow-sm bg-white">
         <View className="w-full flex-row " >
 
@@ -43,17 +45,139 @@ const Seats = () => {
             
         </View>
      </View>
-     <View className="p-2 flex-row justify-between ">
-        <Text className="font-bold">
+     <View className="flex-row justify-between" >
+
+        <View style={{flex: 1}}>
+        <ScrollView className="px-4 py-4" >
+     <Text className="font-bold mb-4">
             Kigali - Bujumbura
         </Text>
-        <Text className="font-bold">
-            Time,Date
-        </Text>
+        <View className="flex-row">
+        <View className="w-8 h-8 rounded-sm  bg-gray-300 justify-center items-center "><Text className="">1</Text></View>
+        <View className="w-8 h-8 rounded-sm ml-8  bg-gray-300 justify-center items-center "><Text className="">2</Text></View>
+        </View>
+        <View className="flex-row mt-2">
+        <View className="w-8 h-8 rounded-sm  bg-gray-300 justify-center items-center "><Text className="">1</Text></View>
+        <View className="w-8 h-8 rounded-sm ml-8  bg-gray-300 justify-center items-center "><Text className="">2</Text></View>
+        </View>
+        <View className="flex-row mt-2">
+        <View className="w-8 h-8 rounded-sm  bg-gray-300 justify-center items-center "><Text className="">1</Text></View>
+        <View className="w-8 h-8 rounded-sm ml-8  bg-gray-300 justify-center items-center "><Text className="">2</Text></View>
+        </View>
+        <View className="flex-row mt-2">
+        <View className="w-8 h-8 rounded-sm  bg-gray-300 justify-center items-center "><Text className="">1</Text></View>
+        <View className="w-8 h-8 rounded-sm ml-8  bg-gray-300 justify-center items-center "><Text className="">2</Text></View>
+        </View>
+        <View className="flex-row mt-2">
+        <View className="w-8 h-8 rounded-sm  bg-gray-300 justify-center items-center "><Text className="">1</Text></View>
+        <View className="w-8 h-8 rounded-sm ml-8  bg-gray-300 justify-center items-center "><Text className="">2</Text></View>
+        </View>
+        <View className="flex-row mt-2">
+        <View className="w-8 h-8 rounded-sm  bg-gray-300 justify-center items-center "><Text className="">1</Text></View>
+        <View className="w-8 h-8 rounded-sm ml-8  bg-gray-300 justify-center items-center "><Text className="">2</Text></View>
+        </View>
+        <View className="flex-row mt-2">
+        <View className="w-8 h-8 rounded-sm  bg-gray-300 justify-center items-center "><Text className="">1</Text></View>
+        <View className="w-8 h-8 rounded-sm ml-8  bg-gray-300 justify-center items-center "><Text className="">2</Text></View>
+        </View>
+        <View className="flex-row mt-2">
+        <View className="w-8 h-8 rounded-sm  bg-gray-300 justify-center items-center "><Text className="">1</Text></View>
+        <View className="w-8 h-8 rounded-sm ml-8  bg-gray-300 justify-center items-center "><Text className="">2</Text></View>
+        </View>
+        <View className="flex-row mt-2">
+        <View className="w-8 h-8 rounded-sm  bg-gray-300 justify-center items-center "><Text className="">1</Text></View>
+        <View className="w-8 h-8 rounded-sm ml-8  bg-gray-300 justify-center items-center "><Text className="">2</Text></View>
+        </View>
+        <View className="flex-row mt-2">
+        <View className="w-8 h-8 rounded-sm  bg-gray-300 justify-center items-center "><Text className="">1</Text></View>
+        <View className="w-8 h-8 rounded-sm ml-8  bg-gray-300 justify-center items-center "><Text className="">2</Text></View>
+        </View>
+        <View className="flex-row mt-2">
+        <View className="w-8 h-8 rounded-sm  bg-gray-300 justify-center items-center "><Text className="">1</Text></View>
+        <View className="w-8 h-8 rounded-sm ml-8  bg-gray-300 justify-center items-center "><Text className="">2</Text></View>
+        </View>
+  </ScrollView>
+        </View>
 
-     </View>
+        <View style={{flex: 1}}>
+        <ScrollView className="px-4 py-4 pl-6" >
+     <Text className="font-bold mb-4">
+            Kigali - Bujumbura
+        </Text>
+        <View className="flex-row">
+        <View className="w-8 h-8 rounded-sm  bg-gray-300 justify-center items-center "><Text className="">1</Text></View>
+        <View className="w-8 h-8 rounded-sm ml-8  bg-gray-300 justify-center items-center "><Text className="">2</Text></View>
+        </View>
+        <View className="flex-row mt-2">
+        <View className="w-8 h-8 rounded-sm  bg-gray-300 justify-center items-center "><Text className="">1</Text></View>
+        <View className="w-8 h-8 rounded-sm ml-8  bg-gray-300 justify-center items-center "><Text className="">2</Text></View>
+        </View>
+        <View className="flex-row mt-2">
+        <View className="w-8 h-8 rounded-sm  bg-gray-300 justify-center items-center "><Text className="">1</Text></View>
+        <View className="w-8 h-8 rounded-sm ml-8  bg-gray-300 justify-center items-center "><Text className="">2</Text></View>
+        </View>
+        <View className="flex-row mt-2">
+        <View className="w-8 h-8 rounded-sm  bg-gray-300 justify-center items-center "><Text className="">1</Text></View>
+        <View className="w-8 h-8 rounded-sm ml-8  bg-gray-300 justify-center items-center "><Text className="">2</Text></View>
+        </View>
+        <View className="flex-row mt-2">
+        <View className="w-8 h-8 rounded-sm  bg-gray-300 justify-center items-center "><Text className="">1</Text></View>
+        <View className="w-8 h-8 rounded-sm ml-8  bg-gray-300 justify-center items-center "><Text className="">2</Text></View>
+        </View>
+        <View className="flex-row mt-2">
+        <View className="w-8 h-8 rounded-sm  bg-gray-300 justify-center items-center "><Text className="">1</Text></View>
+        <View className="w-8 h-8 rounded-sm ml-8  bg-gray-300 justify-center items-center "><Text className="">2</Text></View>
+        </View>
+        <View className="flex-row mt-2">
+        <View className="w-8 h-8 rounded-sm  bg-gray-300 justify-center items-center "><Text className="">1</Text></View>
+        <View className="w-8 h-8 rounded-sm ml-8  bg-gray-300 justify-center items-center "><Text className="">2</Text></View>
+        </View>
+        <View className="flex-row mt-2">
+        <View className="w-8 h-8 rounded-sm  bg-gray-300 justify-center items-center "><Text className="">1</Text></View>
+        <View className="w-8 h-8 rounded-sm ml-8  bg-gray-300 justify-center items-center "><Text className="">2</Text></View>
+        </View>
+        <View className="flex-row mt-2">
+        <View className="w-8 h-8 rounded-sm  bg-gray-300 justify-center items-center "><Text className="">1</Text></View>
+        <View className="w-8 h-8 rounded-sm ml-8  bg-gray-300 justify-center items-center "><Text className="">2</Text></View>
+        </View>
+        <View className="flex-row mt-2">
+        <View className="w-8 h-8 rounded-sm  bg-gray-300 justify-center items-center "><Text className="">1</Text></View>
+        <View className="w-8 h-8 rounded-sm ml-8  bg-gray-300 justify-center items-center "><Text className="">2</Text></View>
+        </View>
+        <View className="flex-row mt-2">
+        <View className="w-8 h-8 rounded-sm  bg-gray-300 justify-center items-center "><Text className="">1</Text></View>
+        <View className="w-8 h-8 rounded-sm ml-8  bg-gray-300 justify-center items-center "><Text className="">2</Text></View>
+        </View>
+  </ScrollView>
+        </View>
+</View>
+
+<TouchableOpacity onPress={()=>{navigation.navigate('Payment')}} className=" rounded-sm bg-blue-500 ml-4 mr-16 py-2 justify-center items-center mb-2">
+<Text className="text-white  font-bold  ">Next</Text>
+</TouchableOpacity>
+
+
+
+
+
     </View>
+    </ScrollView>
   )
 }
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+    },
+  content:{
+    padding: 10,
+    flex:1
+  },
+  list:{
+    marginTop:20,
+    flex:1,
+   
+  }
+  });
 
 export default Seats
