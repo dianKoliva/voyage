@@ -9,18 +9,18 @@ import Seats from './src/components/Seats';
 import NavigationStack from './src/routes/NavigationStack';
 import Payment from './src/components/Payment';
 import { Provider } from 'react-redux';
-import { store } from './src/redux/store';
+// import { store } from './src/redux/store';
 
 export default function App() {
   return (
-    <Provider store={store}>
+    // <Provider store={store}>
     <TailwindProvider>
     <View style="" className="flex-1 " >
      <StatusBar style="auto" />
   <NavigationStack></NavigationStack>
     </View>
     </TailwindProvider>
-    </Provider>
+    // </Provider>
   );
 }
 
