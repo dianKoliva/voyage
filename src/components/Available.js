@@ -1,15 +1,26 @@
-import { View, Text, FlatList ,StatusBar,StyleSheet, TouchableOpacity} from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, FlatList ,StyleSheet,TouchableOpacity} from 'react-native'
+import React, { useState,useEffect } from 'react'
+import { fonts } from "../utils/fonts";
+import { useSelector } from "react-redux";
+import { trips } from '../functions/api';
 
 const Available = ({navigation}) => {
-    const [buses,setBuses]=useState([
-        {name:"Volcano Express",date:"5th November 2010",from:"Kigali",to:"Burundi",price:"1200",key:1},
-        {name:"Volcano Express",date:"5th November 2010",from:"Kigali",to:"Burundi",price:"1200",key:2},
-        {name:"Volcano Express",date:"5th November 2010",from:"Kigali",to:"Burundi",price:"1200",key:3},
-        {name:"Volcano Express",date:"5th November 2010",from:"Kigali",to:"Burundi",price:"1200",key:4},
-        {name:"Volcano Express",date:"5th November 2010",from:"Kigali",to:"Burundi",price:"1200",key:5},
-        {name:"Volcano Express",date:"5th November 2010",from:"Kigali",to:"Burundi",price:"1200",key:6}
-    ])
+  const { token} = useSelector((state) => state.app);
+  const{date}=useSelector((state) => state.app);
+  const [buses,setBuses]=useState([])
+
+  useEffect(()=>{
+    trips(token,date).then((res) => {
+      let list=res.data.map((p)=>{
+        let obj = { time: p.dept_time, route:p.routeName,seats:p.capacity,date:p.dept_date};
+        return obj;
+      });
+   setBuses(list)
+    
+    })
+    .catch((err) => console.log(err));
+  },[])
+ 
   return (
     
     <View style={styles.container}>
@@ -31,11 +42,12 @@ const Available = ({navigation}) => {
   renderItem={({item})=>(
     <TouchableOpacity onPress={()=>{navigation.navigate("Seats")}}>
 <View className="bg-white shadow-sm border  border-gray-100 p-2 mt-4 ">
-          <Text className=" text-blue-500 font-bold mb-2 ">{item.name}</Text>
-            <Text className="mb-1">Departure Date:  {item.date}</Text>
-            <Text className="mb-1">From:  {item.from}</Text>
-            <Text className="mb-1">To:  {item.to}</Text>
-            <Text className=" font-bold">Price:  {item.price} RWF</Text>
+          <Text className=" text-blue-500  mb-2  " style={[ fonts.dmSansBold]}>{item.name}</Text>
+            <Text className="mb-1" style={[ fonts.dmSansRegular]}>Departure Date:  {item.date}</Text>
+            <Text className="mb-1" style={[ fonts.dmSansRegular]}>Departure Time:  {item.time}</Text>
+            <Text className="mb-1" style={[ fonts.dmSansRegular]}>Route:  {item.route}</Text>
+           
+            <Text className=" " style={[ fonts.dmSansBold]}>Price:  {item.price} RWF</Text>
 
         </View>
         </TouchableOpacity>

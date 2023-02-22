@@ -1,29 +1,29 @@
 import { View, Text,StatusBar, TouchableOpacity, StyleSheet, Platform,Button} from 'react-native'
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import { FontAwesome } from '@expo/vector-icons';
 import {Picker} from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker'
-
-
-const Destination = ({navigation}) => {
-  
-    
-  const [selectedValue, setSelectedValue] = useState("java");
+import { stations } from '../functions/api';
+import { useSelector } from "react-redux";
+import { fonts } from "../utils/fonts";
+import { useDispatch } from "react-redux";
+import { setdate } from '../store/reducers';
+const Destination = ({navigation}) => { 
+  const dispatch = useDispatch();
+  const { token, user } = useSelector((state) => state.app);
+  const [selectedValue, setSelectedValue] = useState("select");
   const [date,setDate]=useState(new Date());
+ 
   const [mode,setMode]=useState('date');
   const [show,setShow]=useState(false);
   const [text,setText]=useState("not set");
-
-
+  const [places,setPlaces]=useState([]);
   const onChange=(event,selectedDate)=>{
     const currentDate=selectedDate || date;
     setShow(Platform.OS==="ios");
     setDate(currentDate);
-   
-    let fDate=currentDate.getDate()+'/'+(currentDate.getMonth()+1)+"/"+currentDate.getFullYear();
-    let fTime=currentDate.getHours()+':'+currentDate.getMinutes();
-    let final=fDate+" "+fTime;
-    setText(final);
+    let fDate=currentDate.getFullYear()+'/'+(currentDate.getMonth()+1)+"/"+currentDate.getDate();
+    setText(fDate);
   }
 
   const showMode=(currentMode)=>{
@@ -31,21 +31,39 @@ const Destination = ({navigation}) => {
     setMode(currentMode);
   }
 
+  const submitter=()=>{
+ 
+    navigation.navigate("Available"); 
+    dispatch(setdate(text))
+  }
+
+  useEffect(()=>{
+    stations(token).then((res) => {
+      let list=res.map((p)=>{
+        let obj = { short: p.country, name:p.name };
+        return obj;
+      });
+      setPlaces(list);
+    
+    })
+    .catch((err) => console.log(err));
+  },[])
+
   return (
     <View>
         <View className="   py-4 bg-blue-500">
           <View className=" flex-row ml-4 mt-4">
-            <View className="mt-4 mb-2  mr-4">
+            <View className="mt-2 mb-2  mr-4">
             <FontAwesome name="bars" size={16} color="white"  />
             </View>
          
-          <Text className="text-white font-bold mt-4">Voyage Bus</Text>
+          <Text className="text-white   text-xl  font-bold mt-[2px]" style={[ fonts.dmSansBold]}>Voyage Bus</Text>
           </View>
             
             <View className=" flex-row  pt-6 justify-between ">
-                <Text className="text-white ml-4">ONE WAY </Text>
+                <Text className="text-white ml-4" style={[ fonts.dmSansRegular]}>ONE WAY </Text>
                 
-                <Text className="text-white mr-4 ">MY BOOKINNGS</Text>
+                <Text className="text-white mr-4 " style={[ fonts.dmSansRegular]}>MY BOOKINNGS</Text>
             
                
             </View>
@@ -55,46 +73,45 @@ const Destination = ({navigation}) => {
 
 <View className=" pt-4 pl-3 flex-row space-x-4 ">
   <View className="bg-white shadow-sm p-1  ">
-  <Text className="font-bold">From</Text>
+  <Text style={[ fonts.dmSansBold]} className="font-bold">From</Text>
 <Picker
         selectedValue={selectedValue}
         style={{ height: 50, width: 150 }}
-        onValueChange={(itemValue, itemIndex) => {setSelectedValue(itemValue);console.log(itemIndex)}}
+        onValueChange={(itemValue, itemIndex) => {setSelectedValue(itemValue)}}
       >
-        <Picker.Item label="Java" value="java" />
+        {places.map((item)=>(
+ <Picker.Item key={item.short} label={item.name} value={item.name} />
+        ))}
+       
       </Picker>
   </View>
   <View className="bg-white shadow-sm p-1 ">
-  <Text className="font-bold">To</Text>
+  <Text style={[ fonts.dmSansRegular]} className="font-bold">To</Text>
 <Picker
         selectedValue={selectedValue}
         style={{ height: 50, width: 150 }}
-        onValueChange={(itemValue, itemIndex) => {setSelectedValue(itemValue);console.log(itemIndex)}}
+        onValueChange={(itemValue, itemIndex) => {setSelectedValue(itemValue)}}
       >
-        <Picker.Item label="Java" value="java" />
+        {places.map((item)=>(
+ <Picker.Item style={[ fonts.dmSansRegular]} key={item.short} label={item.name} value={item.name} />
+        ))}
       </Picker>
   </View>
 
 </View>
 <View className="items-center mt-10 bg-white shadow-sm mx-8">
-<Text className="py-3 font-bold ">DEPART DATE</Text>
+<Text className="py-3 font-bold " style={[ fonts.dmSansBold]}>DEPART DATE</Text>
 <View className="flex-row  py-3  ">
 <View>
-<Button title='Date' onPress={()=>showMode('date')}/>
+<Button title='Choose Date' onPress={()=>showMode('date')}/>
 </View>
 
-<View className="ml-4">
-<Button className=
-"" title='Time' onPress={()=>
-{showMode('time')}}/>
-</View>
+
 
 </View>
 <View className="mb-2">
-  <Text>Time: {text} </Text>
+  <Text style={[ fonts.dmSansRegular]}>Time: {text} </Text>
 </View>
-
-
 
 
 
@@ -110,8 +127,8 @@ const Destination = ({navigation}) => {
   )
   }
 </View>
-<TouchableOpacity className="bg-blue-500 mt-8 p-2 items-center mx-8" onPress={()=>{navigation.navigate("Available")}}>
-  <Text className="text-white">Search Bus Trips</Text>
+<TouchableOpacity className="bg-blue-500 mt-8 p-2 items-center mx-8" onPress={submitter}>
+  <Text style={[ fonts.dmSansRegular]} className="text-white">Search Bus Trips</Text>
 </TouchableOpacity>
         </View>
 
