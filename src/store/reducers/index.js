@@ -6,7 +6,12 @@ export const appSlice = createSlice({
     token: null,
     user: null,
     isAuth: false,
-    date:null
+    date:null,
+    from:null,
+    to:null,
+    routeName:null,
+    routerNo:null,
+    time:null
     
   },
   reducers: {
@@ -22,12 +27,22 @@ export const appSlice = createSlice({
     },
     setdate:(state,action)=>{
       state.date=action.payload;
-    }
+    },
+    setWay:(state,action)=>{
+      state.from=action.payload.selectedValue;
+      state.to=action.payload.secondValue;
+    },
+    forSeat:(state,action)=>{
+      state.routeName=action.payload.routeName
+      state.routerNo=action.payload.routerNo
+      state.time=action.payload.time
+      console.log(state.routeName)
+    },
   },
   
 });
 
-export const { authenticate, logout,setdate} =
+export const { authenticate, logout,setdate,setWay,forSeat} =
   appSlice.actions;
 
 export default appSlice.reducer;

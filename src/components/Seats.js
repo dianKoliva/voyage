@@ -1,7 +1,22 @@
 import { View, Text,StyleSheet,FlatList,TouchableOpacity ,ScrollView} from 'react-native'
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
+import { seats } from '../functions/api'
+import { useSelector } from "react-redux";
 
 const Seats = ({navigation}) => {
+  const { token,from,to,time,routeNo,date} = useSelector((state) => state.app);
+  useEffect(()=>{
+    seats(token,date,from,to).then((res) => {
+      console.log(res.data);
+      // let list=res.data.map((p)=>{
+      //   let obj = { time: p.dept_time, route:p.routeName,seats:p.capacity,date:p.dept_date,nom:p.route};
+      //   return obj;
+      // });
+  
+    
+    })
+    .catch((err) => console.log(err));
+  },[])
 
   return (
     <ScrollView style={{ height: '100%'}}>

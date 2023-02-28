@@ -7,7 +7,6 @@ import { TailwindProvider } from 'tailwindcss-react-native'
 
 const Main = () => {
     const{isAuth}=useSelector((state) => state.app)
-   
     
   return (
     <TailwindProvider>

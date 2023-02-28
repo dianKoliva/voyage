@@ -8,10 +8,12 @@ import { useSelector } from "react-redux";
 import { fonts } from "../utils/fonts";
 import { useDispatch } from "react-redux";
 import { setdate } from '../store/reducers';
+import {setWay} from "../store/reducers"
 const Destination = ({navigation}) => { 
   const dispatch = useDispatch();
   const { token, user } = useSelector((state) => state.app);
   const [selectedValue, setSelectedValue] = useState("select");
+  const [secondValue,setSecondValue]=useState("");
   const [date,setDate]=useState(new Date());
  
   const [mode,setMode]=useState('date');
@@ -33,8 +35,10 @@ const Destination = ({navigation}) => {
 
   const submitter=()=>{
  
+    
+    dispatch(setdate(text));
+    dispatch(setWay({selectedValue,secondValue}));
     navigation.navigate("Available"); 
-    dispatch(setdate(text))
   }
 
   useEffect(()=>{
@@ -88,9 +92,9 @@ const Destination = ({navigation}) => {
   <View className="bg-white shadow-sm p-1 ">
   <Text style={[ fonts.dmSansRegular]} className="font-bold">To</Text>
 <Picker
-        selectedValue={selectedValue}
+        selectedValue={secondValue}
         style={{ height: 50, width: 150 }}
-        onValueChange={(itemValue, itemIndex) => {setSelectedValue(itemValue)}}
+        onValueChange={(itemValue, itemIndex) => {setSecondValue(itemValue)}}
       >
         {places.map((item)=>(
  <Picker.Item style={[ fonts.dmSansRegular]} key={item.short} label={item.name} value={item.name} />
