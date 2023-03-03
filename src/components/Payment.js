@@ -1,11 +1,23 @@
 import { View, Text,Image,Keyboard, TouchableOpacity,StyleSheet,TouchableWithoutFeedback} from 'react-native'
 import React,{useState,useRef} from 'react'
 import PhoneInput from 'react-native-phone-number-input';
-
+import { useSelector } from "react-redux";
+import { approve } from '../functions/api';
 
 const Payment = ({navigation}) => {
+  const {ticketId,token} = useSelector((state) => state.app);
     const [phoneNumber, setPhoneNumber] = useState('');
     const phoneInput = useRef(null);
+
+    function pay(){
+      var newId=ticketId.replace("-","");
+      approve(newId,token).then((res)=>{
+console.log(res.data);
+      }).catch((err)=>{
+        console.log(err);
+      })
+    }
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View>
@@ -36,8 +48,8 @@ const Payment = ({navigation}) => {
         }}
       />
       </View>
-
-      <TouchableOpacity  className="mt-8  items-center py-4  mx-4 bg-blue-500"  onPress={()=>{navigation.navigate('Ticket')}}>
+      {/* onPress={()=>{navigation.navigate('Ticket')}} */}
+      <TouchableOpacity onPress={pay()}  className="mt-8  items-center py-4  mx-4 bg-blue-500"  >
         <Text className="text-white font-bold " >Make Payment</Text>
       </TouchableOpacity >   
     </View>

@@ -12,12 +12,14 @@ const Available = ({navigation}) => {
   const{date}=useSelector((state) => state.app);
   const [buses,setBuses]=useState([]);
   const [routeName,setRouteName]=useState("");
-  const [routerNo,setRouteNo]=useState(0);
+  const [routeNo,setRouteNo]=useState();
   const [time,setTime]=useState("");
 
   useEffect(()=>{
     trips(token,date,from,to).then((res) => {
-      let list=res.data.map((p)=>{
+      let dt=res.data;
+    
+      let list=dt.map((p)=>{
         let obj = { time: p.dept_time, route:p.routeName,seats:p.capacity,date:p.dept_date,nom:p.route};
         return obj;
       });
@@ -31,7 +33,8 @@ const Available = ({navigation}) => {
     setTime(t);
     setRouteName(name);
     setRouteNo(no);
-  dispatch(forSeat({routeName,routerNo,time}));
+  dispatch(forSeat({name,no,t}));
+  navigation.navigate("Seats");
   }
   return (
     
