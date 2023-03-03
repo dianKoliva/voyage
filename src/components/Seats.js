@@ -25,6 +25,7 @@ const Seats = ({navigation}) => {
       });
  
     setAvailable(list);
+  
     })
     .catch((err) => console.log(err));
   },[])
@@ -40,8 +41,18 @@ const Seats = ({navigation}) => {
 
   function finder(num){
  var result={};
+ if(isObjEmpty(available)){
+
   result = available.find(item => item.no == num);
- return isObjEmpty(result);
+   if(result.status==="CO"){
+  return false;
+ }
+ else{
+  return true;
+ }
+ }
+
+
   }
 
 
@@ -56,13 +67,24 @@ else{
 
 
   function selecter(num){
-    if(selected.includes(num)){
+    var know= selected.includes(num);
+    if(know){
        let filteredArray = selected.filter(item => item !== num);
        setSelected(filteredArray);
     }
     else{
   setSelected([...selected,num]);
     }
+  }
+
+  function allInOne(num){
+    if(finder(num)){
+      selecter(num)
+    }
+    else{
+      notify();
+    }
+
   }
 
 function notify(){

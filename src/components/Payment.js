@@ -1,18 +1,43 @@
-import { View, Text,Image,Keyboard, TouchableOpacity,StyleSheet,TouchableWithoutFeedback} from 'react-native'
+import { View, Text,Image,Keyboard,Alert, TouchableOpacity,StyleSheet,TouchableWithoutFeedback} from 'react-native'
 import React,{useState,useRef} from 'react'
 import PhoneInput from 'react-native-phone-number-input';
 import { useSelector } from "react-redux";
 import { approve } from '../functions/api';
+import { useDispatch } from "react-redux";
+import { confirmed } from '../store/reducers';
 
 const Payment = ({navigation}) => {
   const {ticketId,token} = useSelector((state) => state.app);
     const [phoneNumber, setPhoneNumber] = useState('');
     const phoneInput = useRef(null);
+    const dispatch = useDispatch();
 
     function pay(){
       var newId=ticketId.replace("-","");
       approve(newId,token).then((res)=>{
-console.log(res.data);
+        if(res.data.success){
+          var day=res.data.message["date"];
+          var passenger=res.data.message["name"];
+          var seat=res.data.message["seat"];
+          var time=res.data.message["time"];
+          var id=res.data.message["id"];
+          var journey=res.data.message["journey"];
+          var code=res.data.message["qrcode"];
+          dispatch(confirmed({day,passenger,seat,time,id,journey,code}));
+          navigation.navigate("Ticket");
+        }
+        else{
+          Alert.alert(
+            "Voyage",
+            "Ticket expired,start booking again",
+           [
+             {
+               text: "OK",
+             },
+           ],
+           { cancelable: false }
+         );
+        }
       }).catch((err)=>{
         console.log(err);
       })
@@ -49,7 +74,7 @@ console.log(res.data);
       />
       </View>
       {/* onPress={()=>{navigation.navigate('Ticket')}} */}
-      <TouchableOpacity onPress={pay()}  className="mt-8  items-center py-4  mx-4 bg-blue-500"  >
+      <TouchableOpacity onPress={()=>pay()}  className="mt-8  items-center py-4  mx-4 bg-blue-500"  >
         <Text className="text-white font-bold " >Make Payment</Text>
       </TouchableOpacity >   
     </View>

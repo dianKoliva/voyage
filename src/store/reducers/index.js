@@ -13,8 +13,14 @@ export const appSlice = createSlice({
     routeNo:null,
     time:null,
     ticketId:null,
-    price:null
-    
+    price:null,
+     day:null,
+     passenger:null,
+     seat:null,
+     time:null,
+     TicketId:null,
+     journey:null,
+     code:null,
   },
   reducers: {
     authenticate: (state, action) => {
@@ -43,13 +49,22 @@ export const appSlice = createSlice({
     setTicket:(state,action)=>{
       state.price=action.payload.price;
       state.ticketId=action.payload.id;
-      console.log(state.price,state.ticketId);
+      
+    },
+    confirmed:(state,action)=>{
+      state.day=action.payload.day;
+      state.passenger=action.payload.passenger;
+      state.seat=action.payload.seat;
+      state.time=action.payload.time;
+      state.TicketId=action.payload.id;
+      state.journey=action.payload.journey;
+      state.code=action.payload.code;
     }
   },
   
 });
 
-export const { authenticate, logout,setdate,setWay,forSeat,setTicket} =
+export const { authenticate, logout,setdate,setWay,forSeat,setTicket,confirmed} =
   appSlice.actions;
 
 export default appSlice.reducer;
